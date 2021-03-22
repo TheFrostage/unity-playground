@@ -69,3 +69,4 @@ Library/
 Temp/
 *.sln
 unity/UnitySpace/Logs/Packages-Update.log
+*.csproj
