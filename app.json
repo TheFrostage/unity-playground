@@ -1,0 +1,12 @@
+{
+  "name": "unity-playground",
+  "displayName": "unity-playground",
+  "expo": {
+    "name": "unity-playground",
+    "slug": "unity-playground",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
