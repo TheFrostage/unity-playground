@@ -63,3 +63,9 @@ buck-out/
 # Expo
 .expo/*
 web-build/
+
+# Unity
+Library/
+Temp/
+*.sln
+unity/UnitySpace/Logs/Packages-Update.log
