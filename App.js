@@ -13,36 +13,75 @@ export default function App() {
       console.log('is Unity ready?', isUnityReady);
     };
 
+
     checkUnity();
   }, []);
 
   const onUnityMessage = (handler) => {
-    console.log(handler.name); // the message name
-    console.log(handler.data); // the message data
-    setTimeout(() => {
-      // You can also create a callback to Unity.
-      handler.send('I am callback!');
-    }, 2000);
-  };
+    console.log('HANDLER!');
+    console.log(1, handler);
+    // console.log(handler.name); // the message name
+    // console.log(handler.data); // the message data
+    // setTimeout(() => {
+    //   // You can also create a callback to Unity.
+    //   handler.send('I am callback!');
+    // }, 2000);
+  }
 
-  const onPress = () => {
+  const onMessage2 = (string) => {
+    console.log('ass2', string);
+  }
+
+  const onPressLeft = async () => {
     if (unityRef) {
       console.log('Ref exists');
-      UnityModule.postMessage('GameObject/Cube', 'toggleRotate', 'message');
+      await UnityModule.postMessageToUnityManager('left');
     }
   }
 
+  const onPressRight = async () => {
+    if (unityRef) {
+      console.log('Ref exists');
+      await UnityModule.postMessageToUnityManager('right');
+    }
+  }
+
+  const onPressUp = async () => {
+    if (unityRef) {
+      console.log('Ref exists');
+      await UnityModule.postMessageToUnityManager('up');
+    }
+  }
+
+  const onPressForward = async () => {
+    if (unityRef) {
+      console.log('Ref exists');
+      await UnityModule.postMessageToUnityManager('forward');
+    }
+  }
+ // 123/
   return (
     <View style={styles.container}>
-      <UnityView ref={unityRef} style={styles.unity} onUnityMessage={onUnityMessage} />
-      <View style={styles.content}>
-        <Text style={styles.welcomeText}>
-          Welcome to React Native!
-        </Text>
-        <TouchableOpacity style={styles.button} onPress={onPress}>
-          <Text style={styles.buttonLabel}>Send message to Unity</Text>
-        </TouchableOpacity>
-      </View>
+      <UnityView ref={unityRef} style={styles.unity} onMessage={onMessage2} />
+      {/*<View style={styles.content}>*/}
+      {/*  <Text style={styles.welcomeText}>*/}
+      {/*    Welcome to React Native!*/}
+      {/*  </Text>*/}
+      {/*  <View style={{ flexDirection: 'row'}}>*/}
+      {/*    <TouchableOpacity style={styles.button} onPress={onPressLeft}>*/}
+      {/*      <Text style={styles.buttonLabel}>Left</Text>*/}
+      {/*    </TouchableOpacity>*/}
+      {/*    <TouchableOpacity style={styles.button} onPress={onPressRight}>*/}
+      {/*      <Text style={styles.buttonLabel}>right</Text>*/}
+      {/*    </TouchableOpacity>*/}
+      {/*    <TouchableOpacity style={styles.button} onPress={onPressUp}>*/}
+      {/*      <Text style={styles.buttonLabel}>up</Text>*/}
+      {/*    </TouchableOpacity>*/}
+      {/*    <TouchableOpacity style={styles.button} onPress={onPressForward}>*/}
+      {/*      <Text style={styles.buttonLabel}>forward</Text>*/}
+      {/*    </TouchableOpacity>*/}
+      {/*  </View>*/}
+      {/*</View>*/}
     </View>
   );
 }
@@ -69,13 +108,13 @@ const styles = StyleSheet.create({
     color: 'green',
   },
   button: {
-    width: 200,
+    width: 80,
     height: 50,
+    marginHorizontal: 5,
     borderRadius: 25,
     backgroundColor: 'grey',
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 50,
   },
   buttonLabel: {
     color: 'white',
