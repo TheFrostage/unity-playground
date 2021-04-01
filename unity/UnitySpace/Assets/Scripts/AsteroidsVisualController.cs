@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class AsteroidsVisualController : MonoBehaviour
 {
@@ -20,14 +21,17 @@ public class AsteroidsVisualController : MonoBehaviour
     [SerializeField, Range(0.0001f, 10)]
     private float speed;
 
+    [SerializeField]
+    private List<MeshRenderer> MeshRenderers;
     private Noise _noise;
 
     private void Start()
     {
         _noise = new Noise((int) Time.time);
+        
         _texture2D = new Texture2D(textureSize, textureSize, TextureFormat.R8, false);
         _texture2D.filterMode = FilterMode.Point;
-        _texture2D.wrapMode = TextureWrapMode.Repeat;
+        _texture2D.wrapMode = TextureWrapMode.Clamp;
         for (int i = 0; i < textureSize; i++)
         {
             for (int j = 0; j < textureSize; j++)
@@ -41,5 +45,14 @@ public class AsteroidsVisualController : MonoBehaviour
 
         _material.SetTexture("_Noise", _texture2D);
         _material.SetFloat("Speed", speed);
+
+        MaterialPropertyBlock props = new MaterialPropertyBlock();
+        foreach (var meshRenderer in MeshRenderers)
+        {
+            var color = Random.ColorHSV(0, 1, 1,1,1,1,1,1);
+            props.SetColor("_Color",color);
+            meshRenderer.SetPropertyBlock(props);
+        }
+        
     }
 }
