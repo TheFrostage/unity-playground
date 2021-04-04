@@ -4,7 +4,6 @@ Shader "Kernelics/MeteorAnimation"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
         _Clip("Clip",float) = 0
     }
     SubShader
@@ -43,28 +42,29 @@ Shader "Kernelics/MeteorAnimation"
                 float3 worldVertex : TEXCOORD2;
             };
 
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
+            sampler2D _Noise;
             float Speed;
             float _Clip;
-            
+
             UNITY_INSTANCING_BUFFER_START(Props)
-	        UNITY_DEFINE_INSTANCED_PROP(float4, _Color)
+            UNITY_DEFINE_INSTANCED_PROP(float4, _Color)
             UNITY_INSTANCING_BUFFER_END(Props)
 
 
             float _coef1;
 
             v2f vert(appdata v)
-            {               
+            {
                 v2f o;
-                UNITY_SETUP_INSTANCE_ID(v); 
+                UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_TRANSFER_INSTANCE_ID(v, o);
                 float3 worldVert = mul(unity_ObjectToWorld, v.vertex);
-                float3 center = mul(unity_ObjectToWorld, float4(0, 0, 0, 1));
-                float3 fromCameraToVertex = worldVert - _WorldSpaceCameraPos;
-                float3 fromVertexToCenter = center - worldVert;
-               
+
+                #ifdef UNITY_INSTANCING_ENABLED
+                float noiseOffset = (tex2Dlod(_Noise, float4(frac(worldVert.xy + _Time.xx * 2 + unity_InstanceID /100),0,0)).r);
+                v.vertex += float4(v.normal * noiseOffset,0);
+                #endif
+
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.N = UnityObjectToWorldNormal(v.normal);
                 o.worldVertex = worldVert;
@@ -76,13 +76,12 @@ Shader "Kernelics/MeteorAnimation"
             fixed4 frag(v2f i) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(i);
-                float4 color = tex2D(_MainTex, i.uv);
+                fixed4 color = UNITY_ACCESS_INSTANCED_PROP(Props, _Color).rgba;
                 //clip(noise - _Clip);
-                float3 L = _WorldSpaceLightPos0; 
+                float3 L = _WorldSpaceLightPos0;
                 float lamberColor = dot(L, i.N);
-                //clip(height + _clipCoef); 
                 color *= lamberColor;
-                color *= UNITY_ACCESS_INSTANCED_PROP(Props, _Color).rgba;
+
 
                 return color;
             }

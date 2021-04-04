@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AsteroidsVisualController : MonoBehaviour
 {
@@ -17,27 +19,32 @@ public class AsteroidsVisualController : MonoBehaviour
 
     [SerializeField, Range(0.0001f, 10)]
     private float power;
-    
+
     [SerializeField, Range(0.0001f, 10)]
     private float speed;
 
     [SerializeField]
     private List<MeshRenderer> MeshRenderers;
-    private Noise _noise;
 
     private void Start()
     {
-        _noise = new Noise((int) Time.time);
-        
-        _texture2D = new Texture2D(textureSize, textureSize, TextureFormat.R8, false);
-        _texture2D.filterMode = FilterMode.Point;
-        _texture2D.wrapMode = TextureWrapMode.Clamp;
+        _texture2D = new Texture2D(textureSize, textureSize, TextureFormat.RG16, false)
+        {
+            filterMode = FilterMode.Point,
+            wrapMode = TextureWrapMode.Clamp
+        };
+
+        var noiseR = new Noise(DateTime.Now.Millisecond);
+        var noiseG = new Noise(DateTime.Now.Millisecond / 2);
+
         for (int i = 0; i < textureSize; i++)
         {
             for (int j = 0; j < textureSize; j++)
             {
-                var noiseValue = _noise.Evaluate(new Vector3(i, j, 0) * frequency)* power;
-                _texture2D.SetPixel(i, j, Color.white * noiseValue);
+                var rValue = noiseR.Evaluate(new Vector3(i, j) * frequency) * power;
+                var gValue = noiseG.Evaluate(new Vector3(i, j) * frequency) * power;
+
+                _texture2D.SetPixel(i, j, new Color(rValue, gValue, 0f));
             }
         }
 
@@ -47,12 +54,22 @@ public class AsteroidsVisualController : MonoBehaviour
         _material.SetFloat("Speed", speed);
 
         MaterialPropertyBlock props = new MaterialPropertyBlock();
+
         foreach (var meshRenderer in MeshRenderers)
         {
-            var color = Random.ColorHSV(0, 1, 1,1,1,1,1,1);
-            props.SetColor("_Color",color);
+            var color = Random.ColorHSV
+            (
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+            );
+            props.SetColor("_Color", color);
             meshRenderer.SetPropertyBlock(props);
         }
-        
     }
 }
