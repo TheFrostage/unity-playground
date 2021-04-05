@@ -48,6 +48,7 @@ Shader "Kernelics/MeteorAnimation"
 
             UNITY_INSTANCING_BUFFER_START(Props)
             UNITY_DEFINE_INSTANCED_PROP(float4, _Color)
+            UNITY_DEFINE_INSTANCED_PROP(float4, _LightVector)
             UNITY_INSTANCING_BUFFER_END(Props)
 
 
@@ -62,7 +63,7 @@ Shader "Kernelics/MeteorAnimation"
 
                 #ifdef UNITY_INSTANCING_ENABLED
                 float noiseOffset = (tex2Dlod(_Noise, float4(frac(worldVert.xy + _Time.xx * 2 + unity_InstanceID /100),0,0)).r);
-                v.vertex += float4(v.normal * noiseOffset,0);
+                v.vertex += float4(normalize(v.vertex) * noiseOffset);
                 #endif
 
                 o.vertex = UnityObjectToClipPos(v.vertex);
@@ -77,10 +78,12 @@ Shader "Kernelics/MeteorAnimation"
             {
                 UNITY_SETUP_INSTANCE_ID(i);
                 fixed4 color = UNITY_ACCESS_INSTANCED_PROP(Props, _Color).rgba;
-                //clip(noise - _Clip);
-                float3 L = _WorldSpaceLightPos0;
-                float lamberColor = dot(L, i.N);
+                float3 L = UNITY_ACCESS_INSTANCED_PROP(Props, _LightVector).xyz;
+                float lamberColor = max(0,dot(L, i.N));
                 color *= lamberColor;
+                //#ifdef UNITY_INSTANCING_ENABLED
+                //color.rgb*=noise;
+                //#endif
 
 
                 return color;

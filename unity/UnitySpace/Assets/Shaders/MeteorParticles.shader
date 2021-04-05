@@ -24,6 +24,7 @@
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
                 float3 normal : NORMAL;
+                float4 color : COLOR;
             };
 
             struct v2f
@@ -31,6 +32,7 @@
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
                 float3 N : TEXCOORD1;
+                float4 color : TEXCOORD2;
             };
 
             sampler2D _MainTex;
@@ -42,6 +44,7 @@
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.N = UnityObjectToWorldNormal(v.normal);
+                o.color = v.color;
                 return o;
             }
 
@@ -50,8 +53,8 @@
                 float4 color = tex2D(_MainTex, i.uv);
                 float3 L = _WorldSpaceLightPos0;
                 float lamberColor = dot(L, i.N);
-                //clip(height + _clipCoef);
                 color *= lamberColor;
+                color *= i.color;
 
                 return color;
             }

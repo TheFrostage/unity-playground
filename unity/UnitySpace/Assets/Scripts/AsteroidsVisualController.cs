@@ -68,7 +68,12 @@ public class AsteroidsVisualController : MonoBehaviour
                 1,
                 1
             );
+
+            Vector3 lightVector = (Vector3.up * Random.Range(-20f, 20f) +
+                                  Vector3.right * Random.Range(-20f, 20f) +
+                                  Vector3.back * 20).normalized;
             props.SetColor("_Color", color);
+            props.SetVector("_LightVector", lightVector);
             meshRenderer.SetPropertyBlock(props);
         }
     }
