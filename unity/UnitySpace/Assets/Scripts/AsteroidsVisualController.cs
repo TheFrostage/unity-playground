@@ -65,8 +65,8 @@ public class AsteroidsVisualController : MonoBehaviour
                 1,
                 1,
                 1,
-                1,
-                1
+                0.7f,
+                0.9f
             );
 
             Vector3 lightVector = (Vector3.up * Random.Range(-20f, 20f) +
