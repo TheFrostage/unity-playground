@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using Random = UnityEngine.Random;
 
 public class AsteroidsVisualController : MonoBehaviour
@@ -26,8 +28,21 @@ public class AsteroidsVisualController : MonoBehaviour
     [SerializeField]
     private List<MeshRenderer> MeshRenderers;
 
+    /* [SerializeField]
+     private SpriteRenderer _sprite;*/
+
     private void Start()
     {
+        /*using (var request = UnityWebRequestTexture.GetTexture("https://cloudfront.test.marine-snow.co/jpg/12a833d5-ef41-4a96-b83b-2644d0d40b8c.jpg"))
+        {
+            yield return request.SendWebRequest();
+
+            var texture2D = DownloadHandlerTexture.GetContent(request);
+            Rect rect = new Rect(0, 0, texture2D.width, texture2D.height);
+            
+            _sprite.sprite = Sprite.Create(texture2D,rect, new Vector2(0.5f,0.5f));
+        }*/
+
         _texture2D = new Texture2D(textureSize, textureSize, TextureFormat.RG16, false)
         {
             filterMode = FilterMode.Point,
@@ -70,8 +85,8 @@ public class AsteroidsVisualController : MonoBehaviour
             );
 
             Vector3 lightVector = (Vector3.up * Random.Range(-20f, 20f) +
-                                  Vector3.right * Random.Range(-20f, 20f) +
-                                  Vector3.back * 20).normalized;
+                                   Vector3.right * Random.Range(-20f, 20f) +
+                                   Vector3.back * 20).normalized;
             props.SetColor("_Color", color);
             props.SetVector("_LightVector", lightVector);
             meshRenderer.SetPropertyBlock(props);
