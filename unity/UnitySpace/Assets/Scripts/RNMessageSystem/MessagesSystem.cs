@@ -34,12 +34,12 @@ namespace RNMessageSystem
                     }
                 }
             }
+
+            //OnRNMessage(@"{""Controller"" : ""Scene"", ""Action"" : ""Init"", ""Params"" : ""{test}""}");
         }
 
         private void OnRNMessage(string message)
         {
-            message = @"{""Controller"" : ""Scene"", ""Action"" : ""Init"", ""Params"" : ""{test}""}";
-
             if (message != "")
             {
                 var json = JObject.Parse(message);

@@ -11,7 +11,7 @@ namespace UnitySpace.Controllers
         private Vector2 _startTouchPosition;
         private bool _touchStarted;
 
-        public void Init()
+        public InputController()
         {
             MainController.Instance.Updated += OnUpdated;
         }
