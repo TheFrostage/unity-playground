@@ -15,8 +15,6 @@ namespace Controllers.SceneController
         [SerializeField]
         private MeshRenderer _sphereMeshRenderer;
 
-        private int _widthHeightValue = 300;
-
         public void Init(string id, Texture2D texture2D)
         {
             Id = id;

@@ -24,7 +24,7 @@ namespace Controllers.SceneController
 
         public IEnumerator Init(SceneInitParams initParams)
         {
-            _spherePlacer = new SpherePlacer.SpherePlacer(LocationingType.Table, Vector2.left * 1.9f + Vector2.up * 4, initParams.Tracks.Count);
+            _spherePlacer = new SpherePlacer.SpherePlacer(LocationingType.Table, Vector2.left * 3f + Vector2.up * 8, initParams.Tracks.Count);
 
             foreach (var track in initParams.Tracks)
             {

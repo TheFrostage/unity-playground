@@ -24,7 +24,7 @@ namespace Controllers.SceneController.SpherePlacer.TablePositionFinder
                     currentPosition += new Vector2(_settings.Spacing.x, 0);
                 }
 
-                currentPosition = new Vector2(leftTopPosition.x, currentPosition.y + _settings.Spacing.y);
+                currentPosition = new Vector2(leftTopPosition.x, currentPosition.y - _settings.Spacing.y);
             }
         }
 

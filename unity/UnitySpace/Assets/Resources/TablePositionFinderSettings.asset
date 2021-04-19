@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6516a55911444044a206b1a5d96d5b4f, type: 3}
   m_Name: TablePositionFinderSettings
   m_EditorClassIdentifier: 
-  Spacing: {x: 0.9, y: 0.9}
-  ElementsInARow: 5
+  Spacing: {x: 3, y: 3}
+  ElementsInARow: 3

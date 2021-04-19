@@ -85,15 +85,10 @@ namespace RNMessageSystem {
 
         private Dictionary<int, UnityMessage> waitCallbackMessageMap = new Dictionary<int, UnityMessage>();
 
-        static UnityMessageManager()
-        {
-            GameObject go = new GameObject("UnityMessageManager");
-            DontDestroyOnLoad(go);
-            Instance = go.AddComponent<UnityMessageManager>();
-        }
-
         void Awake()
         {
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
         }
 
         public void SendMessageToRN(string message)

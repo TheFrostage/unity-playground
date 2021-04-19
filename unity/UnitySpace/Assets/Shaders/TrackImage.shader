@@ -53,7 +53,7 @@
                 float startAlphaDistance = 0.35;
                 float endAlphaDistance = 0.5;
                 float t = 1 - (dist - startAlphaDistance) / (endAlphaDistance - startAlphaDistance);
-                col.a = t ;
+                col.a = t;
                 return col;
             }
             ENDCG
