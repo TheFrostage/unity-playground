@@ -5,6 +5,7 @@ Shader "Kernelics/MeteorAnimation"
     Properties
     {
         _Clip("Clip",float) = 0
+        _Noise("Noise", 2D) = "white"{}
     }
     SubShader
     {
@@ -16,7 +17,7 @@ Shader "Kernelics/MeteorAnimation"
         Pass
         {
             Blend SrcAlpha OneMinusSrcAlpha
-            ZWrite off
+            ZWrite On
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag

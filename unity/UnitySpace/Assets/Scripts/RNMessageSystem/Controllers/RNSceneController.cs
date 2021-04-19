@@ -11,7 +11,7 @@ namespace RNMessageSystem.Controllers
         private void Init(string parameters)
         {
             var sceneInitParams = JsonConvert.DeserializeObject<SceneInitParams>(parameters);
-            MainController.Instance.SceneController.Init(sceneInitParams);
+            MainController.Instance.StartCoroutine(MainController.Instance.SceneController.Init(sceneInitParams));
         }
     }
 }

@@ -11,7 +11,8 @@ namespace Controllers.SceneController.SpherePlacer.TablePositionFinder
         {
             _settings = Resources.Load<TablePositionFinderSettings>("TablePositionFinderSettings");
             int rowsCount = elementsCount / _settings.ElementsInARow;
-            int columnsCount = rowsCount > 0 ? elementsCount % _settings.ElementsInARow : elementsCount;
+            int columnsCount = rowsCount > 0 ? _settings.ElementsInARow : elementsCount;
+            rowsCount++;
             _table = new Table<Vector2>(rowsCount, columnsCount);
             Vector2 currentPosition = leftTopPosition;
 
@@ -29,8 +30,8 @@ namespace Controllers.SceneController.SpherePlacer.TablePositionFinder
 
         public Vector2 GetPosition(int sphereNumber)
         {
-            int rowIndex = sphereNumber / (_table.ColumnsCount - 1);
-            int columnIndex = sphereNumber % (_table.ColumnsCount - 1);
+            int rowIndex = sphereNumber / _table.ColumnsCount;
+            int columnIndex = sphereNumber % _table.ColumnsCount;
             return _table.GetCell(rowIndex, columnIndex).Value;
         }
     }

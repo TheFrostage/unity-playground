@@ -25,7 +25,7 @@ namespace Controllers.SceneController.SpherePlacer
 
         public Vector2 GetNextPosition()
         {
-            return _positionFinder.GetPosition(_positionNumber);
+            return _positionFinder.GetPosition(_positionNumber++);
         }
 
         public void Reset()

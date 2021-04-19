@@ -25,6 +25,8 @@ namespace UnitySpace
             RnMessagesSystem = new MessagesSystem();
             SceneController = new SceneController();
             InputController = new InputController();
+            
+            RnMessagesSystem.Init();
         }
 
         private void Update()
