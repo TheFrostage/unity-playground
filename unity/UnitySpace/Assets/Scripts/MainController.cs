@@ -43,6 +43,7 @@ namespace UnitySpace
             RnMessagesSystem.Deinit();
             SceneController.Deinit();
             InputController.Deinit();
+            SceneClicker.Deinit();
         }
     }
 }
