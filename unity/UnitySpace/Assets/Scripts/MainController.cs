@@ -17,6 +17,8 @@ namespace UnitySpace
         public SceneController SceneController { get; private set; }
         public InputController InputController { get; private set; }
 
+        public SceneClicker SceneClicker { get; private set; }
+
         public void Init()
         {
             _instance = this;
@@ -25,8 +27,10 @@ namespace UnitySpace
             RnMessagesSystem = new MessagesSystem();
             SceneController = new SceneController();
             InputController = new InputController();
-            
+            SceneClicker = new SceneClicker();
+
             RnMessagesSystem.Init();
+            SceneClicker.Init(SceneController.MainCamera);
         }
 
         private void Update()

@@ -1,8 +1,8 @@
 using Newtonsoft.Json;
-using RNMessageSystem.ActionParams;
+using RNMessageSystem.ToUnityMessages.ActionParams;
 using UnitySpace;
 
-namespace RNMessageSystem.Controllers
+namespace RNMessageSystem.ToUnityMessages.Controllers
 {
     [ControllerName("Scene")]
     public class RnSceneController : RnMessageController
@@ -12,6 +12,12 @@ namespace RNMessageSystem.Controllers
         {
             var sceneInitParams = JsonConvert.DeserializeObject<SceneInitParams>(parameters);
             MainController.Instance.StartCoroutine(MainController.Instance.SceneController.Init(sceneInitParams));
+        }
+
+        [ActionName("Deinit")]
+        private void Deinit(string parameters)
+        {
+            MainController.Instance.SceneController.Deinit();
         }
     }
 }

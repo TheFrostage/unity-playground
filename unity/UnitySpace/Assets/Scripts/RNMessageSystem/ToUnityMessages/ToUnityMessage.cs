@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace RNMessageSystem
+namespace RNMessageSystem.ToUnityMessages
 {
-    public class RnMessage
+    public class ToUnityMessage
     {
         public string Controller;
         public string Action;

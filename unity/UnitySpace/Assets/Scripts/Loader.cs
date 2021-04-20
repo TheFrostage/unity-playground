@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace UnitySpace
 {
@@ -8,9 +7,9 @@ namespace UnitySpace
         private void Start()
         {
             var mainController = new GameObject("MainController").AddComponent<MainController>();
-            Destroy(gameObject);
-            SceneManager.LoadScene("Main");
             mainController.Init();
+            Destroy(gameObject);
+            
         }
     }
 }

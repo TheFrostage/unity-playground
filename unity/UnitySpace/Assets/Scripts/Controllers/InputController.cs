@@ -5,7 +5,7 @@ namespace UnitySpace.Controllers
 {
     public class InputController
     {
-        public event Action LongPressed;
+        public event Action<Vector2> LongPressed;
 
         private float _startTouchTime;
         private Vector2 _startTouchPosition;
@@ -46,8 +46,7 @@ namespace UnitySpace.Controllers
 
                     if (isLongPressOffset && isLongPressTime)
                     {
-                        LongPressed?.Invoke();
-                        Debug.Log("Longpress");
+                        LongPressed?.Invoke(touch.position);
                     }
                 }
 

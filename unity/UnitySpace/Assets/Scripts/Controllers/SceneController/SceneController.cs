@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Controllers.SceneController.SpherePlacer;
-using RNMessageSystem.ActionParams;
+using RNMessageSystem.ToUnityMessages.ActionParams;
 using UnityEngine;
 using UnityEngine.Networking;
 using Object = UnityEngine.Object;
@@ -12,19 +12,30 @@ namespace Controllers.SceneController
 {
     public class SceneController
     {
+        public Camera MainCamera { get; }
         private readonly List<SphereObject> _spheres;
-        private SphereObject _spherePrefab;
+        private readonly SphereObject _spherePrefab;
         private SpherePlacer.SpherePlacer _spherePlacer;
 
         public SceneController()
         {
             _spherePrefab = Resources.Load<SphereObject>("Sphere");
+            var mainCameraPrefab = Resources.Load<Camera>("MainCamera");
+            MainCamera = Object.Instantiate(mainCameraPrefab);
             _spheres = new List<SphereObject>();
         }
 
         public IEnumerator Init(SceneInitParams initParams)
         {
-            _spherePlacer = new SpherePlacer.SpherePlacer(LocationingType.Table, Vector2.left * 3f + Vector2.up * 8, initParams.Tracks.Count);
+            if (_spheres.Count > 0)
+            {
+                DestroySpheres();
+            }
+
+            _spherePlacer =
+                new SpherePlacer.SpherePlacer(LocationingType.Table, Vector2.left * 3f + Vector2.up * 8, initParams.Tracks.Count);
+
+            List<(string, Texture2D)> textures = new List<(string, Texture2D)>(initParams.Tracks.Count);
 
             foreach (var track in initParams.Tracks)
             {
@@ -40,14 +51,19 @@ namespace Controllers.SceneController
                     }
                     else
                     {
-                        var sphere = Object.Instantiate(_spherePrefab);
                         var texture2D = DownloadHandlerTexture.GetContent(request);
                         texture2D.wrapMode = TextureWrapMode.Clamp;
-                        sphere.Init(track.Id, texture2D);
-                        sphere.transform.position = _spherePlacer.GetNextPosition();
-                        _spheres.Add(sphere);
+                        textures.Add((track.Id, texture2D));
                     }
                 }
+            }
+
+            foreach (var (id, texture2D) in textures)
+            {
+                var sphere = Object.Instantiate(_spherePrefab);
+                sphere.Init(id, texture2D);
+                sphere.transform.position = _spherePlacer.GetNextPosition();
+                _spheres.Add(sphere);
             }
 
             SetMaterialSettings();
@@ -103,6 +119,11 @@ namespace Controllers.SceneController
         }
 
         public void Deinit()
+        {
+            DestroySpheres();
+        }
+
+        private void DestroySpheres()
         {
             foreach (var sphere in _spheres)
             {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace RNMessageSystem.ActionParams
+namespace RNMessageSystem.ToUnityMessages.ActionParams
 {
     public class SceneInitParams
     {

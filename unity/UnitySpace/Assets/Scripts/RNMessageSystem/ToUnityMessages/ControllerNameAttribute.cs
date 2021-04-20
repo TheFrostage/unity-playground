@@ -1,6 +1,6 @@
 using System;
 
-namespace RNMessageSystem
+namespace RNMessageSystem.ToUnityMessages
 {
     public class ControllerNameAttribute : Attribute
     {

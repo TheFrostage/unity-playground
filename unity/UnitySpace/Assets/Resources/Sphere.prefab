@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 52331015713705028}
   - component: {fileID: 52331015713705029}
   - component: {fileID: 700972169244980817}
+  - component: {fileID: 1295567125019771460}
   m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
@@ -95,6 +96,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _trackMeshRenderer: {fileID: 201507382916388041}
   _sphereMeshRenderer: {fileID: 52331015713705029}
+--- !u!135 &1295567125019771460
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52331015713705027}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.24
+  m_Center: {x: 0.04605186, y: 0.35468408, z: 0.018083397}
 --- !u!1 &5541215659195405744
 GameObject:
   m_ObjectHideFlags: 0
