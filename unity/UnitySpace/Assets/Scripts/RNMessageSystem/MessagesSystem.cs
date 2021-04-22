@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using RNMessageSystem.ToRNMessages;
 using RNMessageSystem.ToUnityMessages;
 using RNMessageSystem.ToUnityMessages.Controllers;
+using UnityEngine;
 
 namespace RNMessageSystem
 {
@@ -27,6 +28,7 @@ namespace RNMessageSystem
 
             foreach (var type in types)
             {
+                Debug.Log(type.Name);
                 if (type.GetInterface(nameof(IRnMessageController)) != null)
                 {
                     var controllerNameAttribute = type.GetCustomAttribute<ControllerNameAttribute>();

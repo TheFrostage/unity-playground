@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using UnityEngine;
 
 namespace RNMessageSystem.ToUnityMessages.Controllers
 {
@@ -15,6 +16,7 @@ namespace RNMessageSystem.ToUnityMessages.Controllers
             var methods = type.GetMethods(  BindingFlags.Instance | BindingFlags.NonPublic);
             foreach (var method in methods)
             {
+                Debug.Log(method.Name);
                 var actionAttribute = method.GetCustomAttribute<ActionName>();
 
                 if (actionAttribute != null)
