@@ -7,14 +7,19 @@ namespace RNMessageSystem.ToUnityMessages.Controllers
     [ControllerName("Scene")]
     public class RnSceneController : RnMessageController
     {
-        [ActionName("Init")]
+        public RnSceneController()
+        {
+            _actions.Add("Init", Init);
+            _actions.Add("Deinit", Deinit);
+        }
+
+
         private void Init(string parameters)
         {
             var sceneInitParams = JsonConvert.DeserializeObject<SceneInitParams>(parameters);
             MainController.Instance.StartCoroutine(MainController.Instance.SceneController.Init(sceneInitParams));
         }
-
-        [ActionName("Deinit")]
+        
         private void Deinit(string parameters)
         {
             MainController.Instance.SceneController.Deinit();
