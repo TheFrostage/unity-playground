@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
+#if UNITY_IOS && !UNITY_EDITOR
+using System.Runtime.InteropServices;
+#endif
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
