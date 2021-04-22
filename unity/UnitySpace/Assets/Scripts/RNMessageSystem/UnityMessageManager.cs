@@ -89,7 +89,7 @@ namespace RNMessageSystem {
 
         private Dictionary<int, UnityMessage> waitCallbackMessageMap = new Dictionary<int, UnityMessage>();
 
-        void Awake()
+        public void Init()
         {
             DontDestroyOnLoad(gameObject);
             Instance = this;

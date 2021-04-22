@@ -38,7 +38,7 @@ namespace RNMessageSystem
                 }
             }
 
-            OnRNMessage(
+           /* OnRNMessage(
                 @"{""Controller"" : ""Scene"", ""Action"" : ""Init"",  ""Params"": {""DownloadLink"": ""https://cloudfront.test.marine-snow.co/jpg/{0}.jpg"",
                 ""Tracks"": [
                 {""id"": ""12a833d5-ef41-4a96-b83b-2644d0d40b8c""},
@@ -54,7 +54,7 @@ namespace RNMessageSystem
                 {""id"": ""f808bbbf-6113-4b61-b131-bbfd19a4c418""},
                 {""id"": ""addbca3b-a586-4aa4-9b83-0f0535d1e92f""},
                 {""id"": ""6ab8b5f7-2eaf-4e88-873f-597a29f88b54""}
-                ]}}");
+                ]}}");*/
         }
 
         private void OnRNMessage(string message)

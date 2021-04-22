@@ -24,6 +24,8 @@ namespace UnitySpace
             _instance = this;
             DontDestroyOnLoad(this);
 
+            var unityMessageManager = new GameObject("UnityMessageManager").AddComponent<UnityMessageManager>();
+            unityMessageManager.Init();
             RnMessagesSystem = new MessagesSystem();
             SceneController = new SceneController();
             InputController = new InputController();
