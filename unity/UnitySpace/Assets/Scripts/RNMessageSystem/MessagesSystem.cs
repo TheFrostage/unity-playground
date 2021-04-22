@@ -23,22 +23,7 @@ namespace RNMessageSystem
         private void InitControllers()
         {
             _controllers = new Dictionary<string, RnMessageController>();
-            var assembly = Assembly.GetExecutingAssembly();
-            var types = assembly.GetTypes();
-
-            foreach (var type in types)
-            {
-                Debug.Log(type.Name);
-                if (type.GetInterface(nameof(IRnMessageController)) != null)
-                {
-                    var controllerNameAttribute = type.GetCustomAttribute<ControllerNameAttribute>();
-
-                    if (controllerNameAttribute != null)
-                    {
-                        _controllers.Add(controllerNameAttribute.Name, (RnMessageController) Activator.CreateInstance(type));
-                    }
-                }
-            }
+            _controllers.Add("Scene", new RnSceneController());
 
            /* OnRNMessage(
                 @"{""Controller"" : ""Scene"", ""Action"" : ""Init"",  ""Params"": {""DownloadLink"": ""https://cloudfront.test.marine-snow.co/jpg/{0}.jpg"",
