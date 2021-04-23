@@ -20,6 +20,7 @@ namespace UnitySpace
             if (Physics.Raycast(ray, out var hit, Constants.SpheresMask))
             {
                 var sphereId = hit.transform.GetComponent<SphereObject>().Id;
+                Debug.Log("LongPress on sphere " + sphereId + " detected");
                 MainController.Instance.RnMessagesSystem.SendMessageToRN("InputInfo", new LongPressData
                 {
                     TargetObject = sphereId

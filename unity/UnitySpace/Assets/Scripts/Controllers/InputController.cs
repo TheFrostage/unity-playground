@@ -46,6 +46,7 @@ namespace UnitySpace.Controllers
 
                     if (isLongPressOffset && isLongPressTime)
                     {
+                        Debug.Log("LongPress detected");
                         LongPressed?.Invoke(touch.position);
                     }
                 }

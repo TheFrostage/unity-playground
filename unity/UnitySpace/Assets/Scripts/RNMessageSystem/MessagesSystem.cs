@@ -68,6 +68,7 @@ namespace RNMessageSystem
         {
             var toRnMessage = new ToRnMessage(messageType, data);
             string json = JsonConvert.SerializeObject(toRnMessage);
+            Debug.Log("Sended to RN message:    " + json);
             UnityMessageManager.Instance.SendMessageToRN(json);
         }
 
