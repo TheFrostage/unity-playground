@@ -1,6 +1,7 @@
 using System;
 using Controllers.SceneController;
 using RNMessageSystem;
+using RNMessageSystem.ToRNMessages;
 using UnityEngine;
 using UnitySpace.Controllers;
 
@@ -33,6 +34,8 @@ namespace UnitySpace
 
             RnMessagesSystem.Init();
             SceneClicker.Init(SceneController.MainCamera);
+            
+            RnMessagesSystem.SendMessageToRN("SceneInitStatus", new SceneInitData());
         }
 
         private void Update()
