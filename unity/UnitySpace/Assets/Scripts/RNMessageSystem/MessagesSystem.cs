@@ -25,7 +25,7 @@ namespace RNMessageSystem
             _controllers = new Dictionary<string, RnMessageController>();
             _controllers.Add("Scene", new RnSceneController());
 
-           /* OnRNMessage(
+            /*OnRNMessage(
                 @"{""Controller"" : ""Scene"", ""Action"" : ""Init"",  ""Params"": {""DownloadLink"": ""https://cloudfront.test.marine-snow.co/jpg/{0}.jpg"",
                 ""Tracks"": [
                 {""id"": ""12a833d5-ef41-4a96-b83b-2644d0d40b8c""},

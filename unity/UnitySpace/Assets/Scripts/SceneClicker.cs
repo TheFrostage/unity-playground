@@ -10,7 +10,7 @@ namespace UnitySpace
         public void Init(Camera camera)
         {
             _camera = camera;
-            MainController.Instance.InputController.LongPressed += OnLongPressed;
+            MainController.Instance.InputController.Clicked += OnLongPressed;
         }
 
         private void OnLongPressed(Vector2 position)
@@ -20,8 +20,8 @@ namespace UnitySpace
             if (Physics.Raycast(ray, out var hit, Constants.SpheresMask))
             {
                 var sphereId = hit.transform.GetComponent<SphereObject>().Id;
-                Debug.Log("LongPress on sphere " + sphereId + " detected");
-                MainController.Instance.RnMessagesSystem.SendMessageToRN("InputInfo", new LongPressData
+                Debug.Log("Click on sphere " + sphereId + " detected");
+                MainController.Instance.RnMessagesSystem.SendMessageToRN("InputInfo", new ClickData
                 {
                     TargetObject = sphereId
                 });
@@ -30,7 +30,7 @@ namespace UnitySpace
 
         public void Deinit()
         {
-            MainController.Instance.InputController.LongPressed -= OnLongPressed;
+            MainController.Instance.InputController.Clicked -= OnLongPressed;
         }
     }
 }

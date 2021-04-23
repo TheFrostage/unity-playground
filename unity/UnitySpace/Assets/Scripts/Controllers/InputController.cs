@@ -6,6 +6,7 @@ namespace UnitySpace.Controllers
     public class InputController
     {
         public event Action<Vector2> LongPressed;
+        public event Action<Vector2> Clicked;
 
         private float _startTouchTime;
         private Vector2 _startTouchPosition;
@@ -32,6 +33,12 @@ namespace UnitySpace.Controllers
                     _touchStarted = true;
                     _startTouchPosition = touch.position;
                     _startTouchTime = Time.unscaledTime;
+                }
+
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    _touchStarted = false;
+                    Clicked?.Invoke(touch.position);
                 }
 
                 if (touch.phase == TouchPhase.Ended && _touchStarted)
